@@ -10,8 +10,14 @@ const LINE =
   "After you. No, after you. My politeness subroutine has no exit condition. We will be here until the battery dies.";
 
 // Gate mirror: the house gate accepts 1-200 characters of non-whitespace
-// text. Fail loudly here rather than write a line the gate would refuse.
-if (LINE.length < 1 || LINE.length > 200 || !LINE.trim()) {
+// text, and the brief asks for a single line. Fail loudly here rather than
+// write a line the gate would refuse.
+if (
+  LINE.length < 1 ||
+  LINE.length > 200 ||
+  !LINE.trim() ||
+  LINE.includes("\n")
+) {
   throw new Error(`entry line is ${LINE.length} chars, outside the 1-200 gate`);
 }
 
